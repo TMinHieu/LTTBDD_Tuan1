@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Betting App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1,
+        h2 {
+            font-size: 1.8rem;
+        }
+        
+        .stats {
+            margin-bottom: 20px;
+        }
+        
+        .stats p {
+            font-size: 1.2rem;
+        }
+        
+        .scorers {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .button {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Football Betting App</h1>
+
+        <div class="stats">
+            <h2>Team Players</h2>
+            <p id="team1-players"></p>
+            <p id="team2-players"></p>
+        </div>
+
+        <div class="stats">
+            <h2>Game Details</h2>
+            <p id="goalkeeper"></p>
+            <p id="field-players"></p>
+            <p id="all-players"></p>
+            <p id="players1-final"></p>
+        </div>
+
+        <div class="stats">
+            <h2>Odds</h2>
+            <p id="team1-odd"></p>
+            <p id="draw-odd"></p>
+            <p id="team2-odd"></p>
+        </div>
+
+        <div class="scorers">
+            <h2>Scorers</h2>
+            <p id="scorers-list"></p>
+        </div>
+
+        <button class="button" onclick="runTasks()">Run Tasks</button>
+    </div>
+
+    <script>
+        const game = {
+            team1: 'Bayern Munich',
+            team2: 'Borrussia Dortmund',
+            players: [
+                ['Neuer', 'Pavard', 'Kimmich', 'Hernandez', 'Davies', 'Goretzka', 'Kimmich', 'Muller', 'Gnarby', 'Lewandowski', 'Coman'],
+                ['Burki', 'Piszczek', 'Hummels', 'Akanji', 'Schulz', 'Weigl', 'Delaney', 'Hazard', 'Brandt', 'Reus', 'Sancho']
+            ],
+            scored: ['Lewandowski', 'Gnarby', 'Hummels', 'Lewandowski'],
+            odds: {
+                team1: 1.33,
+                x: 3.25,
+                team2: 6.5
+            }
+        };
+
+        function runTasks() {
+            // Task 1: Create player arrays for each team
+            const [players1, players2] = game.players;
+
+            // Task 2: Goalkeeper and field players for team 1
+            const gk = players1[0];
+            const fieldPlayers = players1.slice(1);
+
+            // Display team players
+            document.getElementById('team1-players').textContent = `Bayern Munich Players: ${players1.join(', ')}`;
+            document.getElementById('team2-players').textContent = `Borrussia Dortmund Players: ${players2.join(', ')}`;
+
+            // Display goalkeeper and field players
+            document.getElementById('goalkeeper').textContent = `Bayern Munich Goalkeeper: ${gk}`;
+            document.getElementById('field-players').textContent = `Bayern Munich Field Players: ${fieldPlayers.join(', ')}`;
+
+            // Task 3: All players array
+            const allPlayers = [...players1, ...players2];
+            document.getElementById('all-players').textContent = `All Players: ${allPlayers.join(', ')}`;
+
+            // Task 4: Players1Final with substitutes
+            const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+            document.getElementById('players1-final').textContent = `Bayern Munich Final Squad: ${players1Final.join(', ')}`;
+
+            // Task 5: Variables for each odd
+            const {
+                team1,
+                x: draw,
+                team2
+            } = game.odds;
+            document.getElementById('team1-odd').textContent = `Odd of victory ${game.team1}: ${team1}`;
+            document.getElementById('draw-odd').textContent = `Odd of draw: ${draw}`;
+            document.getElementById('team2-odd').textContent = `Odd of victory ${game.team2}: ${team2}`;
+
+            // Task 6: Print Goals Function
+            function printGoals(...players) {
+                console.log('Goals Scored By:');
+                players.forEach(player => console.log(player));
+                console.log(`Total Goals: ${players.length}`);
+            }
+
+            // Test the printGoals function
+            printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
+            printGoals(...game.scored);
+
+            // Task 7: Team with lower odd is more likely to win
+            const mostLikelyToWin = game.odds.team1 < game.odds.team2 ? game.team1 : game.team2;
+            console.log(`The team more likely to win is: ${mostLikelyToWin}`);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Car Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        pre {
+            text-align: left;
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Electric Car Example</h1>
+        <script>
+            // 1. Car constructor function
+            function Car(make, speed) {
+                this.make = make;
+                this.speed = speed;
+            }
+
+            // Accelerate method for Car
+            Car.prototype.accelerate = function() {
+                this.speed += 10;
+                console.log(`${this.make} is now going at ${this.speed} km/h`);
+            };
+
+            // Brake method for Car
+            Car.prototype.brake = function() {
+                this.speed -= 5;
+                console.log(`${this.make} is now going at ${this.speed} km/h`);
+            };
+
+            // 2. EV constructor function as a subclass of Car
+            function EV(make, speed, charge) {
+                Car.call(this, make, speed);
+                this.charge = charge;
+            }
+
+            // Inherit methods from Car
+            EV.prototype = Object.create(Car.prototype);
+            EV.prototype.constructor = EV;
+
+            // 3. Charge battery method for EV
+            EV.prototype.chargeBattery = function(chargeTo) {
+                this.charge = chargeTo;
+                console.log(`${this.make} now has a charge of ${this.charge}%`);
+            };
+
+            // Override accelerate method for EV
+            EV.prototype.accelerate = function() {
+                this.speed += 20;
+                this.charge -= 1;
+                console.log(`${this.make} going at ${this.speed} km/h, with a charge of ${this.charge}%`);
+            };
+
+            // 4. Create an EV object and test methods
+            const tesla = new EV('Tesla', 120, 23);
+
+            // Testing accelerate, brake, and chargeBattery methods
+            console.log('Testing Tesla:');
+            tesla.accelerate(); // Tesla going at 140 km/h, with a charge of 22%
+            tesla.brake(); // Tesla is now going at 135 km/h
+            tesla.chargeBattery(90); // Tesla now has a charge of 90%
+            tesla.accelerate(); // Tesla going at 155 km/h, with a charge of 89%
+        </script>
+    </div>
+</body>
+
+</html>

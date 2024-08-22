@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Betting App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            margin-bottom: 20px;
+        }
+        
+        .stats p {
+            font-size: 1.2rem;
+        }
+        
+        .scorers {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Football Betting App</h1>
+
+        <div class="stats">
+            <h2>Match Results</h2>
+            <div id="goal-list"></div>
+        </div>
+
+        <div class="stats">
+            <h2>Odds</h2>
+            <p id="odds-victory-team1"></p>
+            <p id="odds-draw"></p>
+            <p id="odds-victory-team2"></p>
+            <p id="average-odd"></p>
+        </div>
+
+        <div class="scorers">
+            <h2>Scorers</h2>
+            <p id="scorers-list"></p>
+        </div>
+    </div>
+
+    <script>
+        const game = {
+            team1: 'Bayern Munich',
+            team2: 'Borrussia Dortmund',
+            scored: ['Lewandowski', 'Gnarby', 'Hummels', 'Lewandowski'],
+            odds: {
+                team1: 1.33,
+                x: 3.25,
+                team2: 6.5
+            }
+        };
+
+        // 1. Print each player name and goal number
+        const goalListElement = document.getElementById('goal-list');
+        game.scored.forEach((player, i) => {
+            goalListElement.innerHTML += `<p>Goal ${i + 1}: ${player}</p>`;
+        });
+
+        // 2. Calculate and display the average odd
+        const odds = Object.values(game.odds);
+        const averageOdd = odds.reduce((acc, odd) => acc + odd, 0) / odds.length;
+        document.getElementById('average-odd').textContent = `Average odd: ${averageOdd.toFixed(2)}`;
+
+        // 3. Display the odds in a formatted way
+        const {
+            team1,
+            team2,
+            odds: gameOdds
+        } = game;
+        document.getElementById('odds-victory-team1').textContent = `Odd of victory ${team1}: ${gameOdds.team1}`;
+        document.getElementById('odds-draw').textContent = `Odd of draw: ${gameOdds.x}`;
+        document.getElementById('odds-victory-team2').textContent = `Odd of victory ${team2}: ${gameOdds.team2}`;
+
+        // 4. Create and display the 'scorers' object
+        const scorers = {};
+        game.scored.forEach(player => {
+            scorers[player] = (scorers[player] || 0) + 1;
+        });
+
+        const scorersListElement = document.getElementById('scorers-list');
+        for (const [player, goals] of Object.entries(scorers)) {
+            scorersListElement.innerHTML += `<p>${player}: ${goals}</p>`;
+        }
+    </script>
+</body>
+
+</html>

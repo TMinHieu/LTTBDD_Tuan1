@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Car ES6 Class Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        pre {
+            text-align: left;
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Electric Car ES6 Class Example</h1>
+        <script>
+            // 1. CarCl class definition
+            class CarCl {
+                constructor(make, speed) {
+                    this.make = make;
+                    this.speed = speed;
+                }
+
+                // Accelerate method
+                accelerate() {
+                    this.speed += 10;
+                    console.log(`${this.make} is now going at ${this.speed} km/h`);
+                    return this; // For chaining
+                }
+
+                // Brake method
+                brake() {
+                    this.speed -= 5;
+                    console.log(`${this.make} is now going at ${this.speed} km/h`);
+                    return this; // For chaining
+                }
+            }
+
+            // 2. EVCl class extending CarCl
+            class EVCl extends CarCl {
+                charge; // Private field
+
+                constructor(make, speed, charge) {
+                    super(make, speed);
+                    this.#charge = charge;
+                }
+
+                // Charge battery method
+                chargeBattery(chargeTo) {
+                    this.#charge = chargeTo;
+                    console.log(`${this.make} now has a charge of ${this.#charge}%`);
+                    return this; // For chaining
+                }
+
+                // Override accelerate method
+                accelerate() {
+                    this.speed += 20;
+                    this.#charge -= 1;
+                    console.log(`${this.make} going at ${this.speed} km/h, with a charge of ${this.#charge}%`);
+                    return this; // For chaining
+                }
+            }
+
+            // 3. Create an EVCl object and test chaining
+            const rivian = new EVCl('Rivian', 120, 23);
+
+            console.log('Testing Rivian:');
+            rivian
+                .accelerate() // Rivian going at 140 km/h, with a charge of 22%
+                .brake() // Rivian is now going at 135 km/h
+                .accelerate() // Rivian going at 155 km/h, with a charge of 21%
+                .chargeBattery(90); // Rivian now has a charge of 90%
+        </script>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Class Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        pre {
+            text-align: left;
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Car Class Example</h1>
+        <script>
+            // 1. CarCl class definition
+            class CarCl {
+                constructor(make, speed) {
+                    this.make = make;
+                    this.speed = speed;
+                }
+
+                // 2. Accelerate method
+                accelerate() {
+                    this.speed += 10;
+                    console.log(`${this.make} is now going at ${this.speed} km/h`);
+                }
+
+                // 3. Brake method
+                brake() {
+                    this.speed -= 5;
+                    console.log(`${this.make} is now going at ${this.speed} km/h`);
+                }
+
+                // 4. Getter for speed in US units (mi/h)
+                get speedUS() {
+                    return this.speed / 1.6;
+                }
+
+                // 5. Setter for speed in US units (mi/h)
+                set speedUS(speedMi) {
+                    this.speed = speedMi * 1.6;
+                }
+            }
+
+            // 6. Create a new car and test methods
+            const car = new CarCl('Ford', 120);
+
+            // Testing accelerate and brake methods
+            console.log('Testing Car:');
+            car.accelerate(); // Ford is now going at 130 km/h
+            car.brake(); // Ford is now going at 125 km/h
+            car.accelerate(); // Ford is now going at 135 km/h
+            car.brake(); // Ford is now going at 130 km/h
+
+            // Testing getter and setter
+            console.log(`Current speed in mi/h: ${car.speedUS}`); // Converts current speed to mi/h
+            car.speedUS = 80; // Sets speed in mi/h
+            console.log(`New speed in km/h: ${car.speed}`); // Converts mi/h speed to km/h
+        </script>
+    </div>
+</body>
+
+</html>

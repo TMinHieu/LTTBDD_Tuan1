@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Betting App - Game Events</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1,
+        h2 {
+            font-size: 1.8rem;
+        }
+        
+        .stats,
+        .events {
+            margin-bottom: 20px;
+        }
+        
+        .stats p,
+        .events p {
+            font-size: 1.2rem;
+        }
+        
+        .button {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Football Betting App - Game Events</h1>
+
+        <div class="events">
+            <h2>Game Events</h2>
+            <p id="unique-events"></p>
+            <p id="average-event-time"></p>
+            <p id="events-list"></p>
+        </div>
+
+        <button class="button" onclick="processGameEvents()">Process Game Events</button>
+    </div>
+
+    <script>
+        const gameEvents = new Map([
+            [17, '⚽ GOAL'],
+            [25, '🔄 Substitution'],
+            [37, '🟡 Yellow Card'],
+            [45, '⚽ GOAL'],
+            [64, '🟡 Yellow Card'],
+            [69, '🔄 Substitution'],
+            [76, '🔄 Substitution'],
+            [85, '⚽ GOAL'],
+            [90, '🔚 End of Game']
+        ]);
+
+        function processGameEvents() {
+            // 1. Create an array 'events' of the different game events that happened (no duplicates)
+            const events = [...new Set(gameEvents.values())];
+            document.getElementById('unique-events').textContent = `Unique events: ${events.join(', ')}`;
+
+            // 2. Remove the event from minute 64
+            gameEvents.delete(64);
+
+            // 3. Compute and log the average event interval
+            const totalEvents = gameEvents.size;
+            const totalMinutes = 90; // Assuming the game is 90 minutes long
+            const averageEventTime = totalMinutes / totalEvents;
+            document.getElementById('average-event-time').textContent = `An event happened, on average, every ${averageEventTime.toFixed(2)} minutes`;
+
+            // 4. Log each event marking whether it's in the first half or second half
+            const eventsList = [];
+            gameEvents.forEach((event, minute) => {
+                const half = minute <= 45 ? 'FIRST HALF' : 'SECOND HALF';
+                eventsList.push(`[${half}] ${minute}: ${event}`);
+            });
+            document.getElementById('events-list').innerHTML = eventsList.join('<br>');
+        }
+    </script>
+</body>
+
+</html>

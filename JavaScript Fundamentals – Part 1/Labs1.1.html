@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Mark and John are trying to compare their BMI (Body Mass Index), which is calculated using the formula:
+        function calculateBMI(mass, height) {
+            return mass / (height * height);
+        }
+
+        //1.Store Mark's and John's mass and height in variables
+        const johnMass = 70; // Mass in kilograms
+        const johnHeight = 1.75; // height in meters
+        const markMass = 85; // Mass in kilograms
+        const markHeight = 1.80; // height in meters
+
+        //2.Calculate both their BMIs using the formula (you can even implement both versions)
+        const johnBMI = calculateBMI(johnMass, johnHeight);
+        const markBMI = calculateBMI(markMass, markHeight);
+
+        //3.Create a Boolean variable 'markHigherBMI' containing information about whether Mark has a higher BMI than John.
+        const markHigherBMI = markBMI > johnBMI;
+
+        // 
+        console.log('John\'s BMI:', johnBMI);
+        console.log('Mark\'s BMI:', markBMI);
+        console.log('Does Mark have a higher BMI than John?', markHigherBMI);
+    </script>
+</body>
+
+</html>

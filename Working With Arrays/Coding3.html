@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Age Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Dog Age Converter</h1>
+        <script>
+            // Arrow function with chaining
+            const calcAverageHumanAge = ages =>
+                ages
+                .map(age => age <= 2 ? age * 2 : 16 + age * 4) // Convert dog ages to human ages
+                .filter(humanAge => humanAge >= 18) // Keep only adult dogs
+                .reduce((sum, age, _, {
+                    length
+                }) => length ? sum + age / length : 0, 0); // Calculate average
+
+            // Test data
+            const data1 = [5, 2, 4, 1, 15, 8, 3];
+            const data2 = [16, 6, 10, 5, 6, 1, 4];
+
+            console.log('Test Data 1:');
+            console.log(`The average human age of the adult dogs is ${calcAverageHumanAge(data1).toFixed(2)} years.`);
+
+            console.log('\nTest Data 2:');
+            console.log(`The average human age of the adult dogs is ${calcAverageHumanAge(data2).toFixed(2)} years.`);
+        </script>
+    </div>
+</body>
+
+</html>

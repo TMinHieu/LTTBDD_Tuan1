@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Geocoding</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        pre {
+            text-align: left;
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Where Am I?</h1>
+        <button id="getLocation">Get Location</button>
+        <pre id="output"></pre>
+        <script>
+            document.getElementById('getLocation').addEventListener('click', () => {
+                // Coordinates to test
+                const coords = [{
+                    lat: 52.508,
+                    lng: 13.381
+                }, {
+                    lat: 19.037,
+                    lng: 72.873
+                }, {
+                    lat: -33.933,
+                    lng: 18.474
+                }];
+
+                // Call the function for each set of coordinates
+                coords.forEach(coord => whereAmI(coord.lat, coord.lng));
+            });
+
+            async function whereAmI(lat, lng) {
+                try {
+                    const geoRes = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+                    if (!geoRes.ok) throw new Error('Failed to fetch location data');
+                    const geoData = await geoRes.json();
+
+                    // Log the location
+                    const city = geoData.city;
+                    const country = geoData.country;
+                    console.log(`You are in ${city}, ${country}`);
+
+                    // Render the country
+                    const countryRes = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+                    if (!countryRes.ok) throw new Error('Failed to fetch country data');
+                    const countryData = await countryRes.json();
+
+                    // Display country details
+                    const output = document.getElementById('output');
+                    output.textContent = `Country: ${countryData[0].name.common}\nCapital: ${countryData[0].capital[0]}\nRegion: ${countryData[0].region}\nSubregion: ${countryData[0].subregion}`;
+                } catch (err) {
+                    console.error(err);
+                    document.getElementById('output').textContent = `Error: ${err.message}`;
+                }
+            }
+        </script>
+    </div>
+</body>
+
+</html>

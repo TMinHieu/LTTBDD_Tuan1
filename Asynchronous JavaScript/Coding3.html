@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Loader</title>
+    <style>
+        .images img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .parallel {
+            border: 5px solid green;
+            /* Just an example CSS */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="images"></div>
+    <script>
+        function createImage(imgPath) {
+            return new Promise((resolve, reject) => {
+                const img = document.createElement('img');
+                img.src = imgPath;
+                img.onload = () => {
+                    document.querySelector('.images').append(img);
+                    resolve(img);
+                };
+                img.onerror = () => reject(new Error('Failed to load image'));
+            });
+        }
+
+        function wait(seconds) {
+            return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+        }
+
+        // Part 1
+        async function loadNPause() {
+            try {
+                // Load the first image
+                let img = await createImage('img/img1.jpg'); // Adjust the image path as needed
+                await wait(2); // Wait for 2 seconds
+                img.style.display = 'none'; // Hide the first image
+
+                // Load the second image
+                img = await createImage('img/img2.jpg'); // Adjust the image path as needed
+                await wait(2); // Wait for 2 seconds
+                img.style.display = 'none'; // Hide the second image
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        // Part 2
+        async function loadAll(imgArr) {
+            try {
+                // Load all images in parallel
+                const imgs = imgArr.map(createImage);
+                const loadedImgs = await Promise.all(imgs);
+
+                // Add the 'parallel' class to all images
+                loadedImgs.forEach(img => img.classList.add('parallel'));
+
+                console.log(loadedImgs);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        // Run the functions
+        loadNPause(); // Comment this line if testing Part 2
+        // Test data for Part 2
+        loadAll(['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']); // Adjust image paths as needed
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Function to calculate average score
+        function calculateAverage(scores) {
+            const total = scores.reduce((acc, score) => acc + score, 0);
+            return total / scores.length;
+        }
+
+        // Test Data (Bonus 2)
+        const dolphinsScores = [97, 112, 101];
+        const koalasScores = [109, 95, 106];
+
+        // Calculate average scores
+        const dolphinsAverage = calculateAverage(dolphinsScores);
+        const koalasAverage = calculateAverage(koalasScores);
+
+        // Minimum score requirement
+        const minimumScore = 100;
+
+        // Determine winner or draw
+        if (dolphinsAverage >= minimumScore && koalasAverage >= minimumScore) {
+            if (dolphinsAverage > koalasAverage) {
+                console.log(`Dolphins win with an average score of ${dolphinsAverage.toFixed(1)} vs. Koalas' ${koalasAverage.toFixed(1)}!`);
+            } else if (koalasAverage > dolphinsAverage) {
+                console.log(`Koalas win with an average score of ${koalasAverage.toFixed(1)} vs. Dolphins' ${dolphinsAverage.toFixed(1)}!`);
+            } else {
+                console.log(`It's a draw! Both teams have the same average score of ${dolphinsAverage.toFixed(1)}.`);
+            }
+        } else {
+            if (dolphinsAverage < minimumScore && koalasAverage < minimumScore) {
+                console.log('No team wins the trophy, both teams scored below the minimum score.');
+            } else if (dolphinsAverage < minimumScore) {
+                console.log(`Koalas win with an average score of ${koalasAverage.toFixed(1)}. Dolphins did not meet the minimum score.`);
+            } else if (koalasAverage < minimumScore) {
+                console.log(`Dolphins win with an average score of ${dolphinsAverage.toFixed(1)}. Koalas did not meet the minimum score.`);
+            }
+        }
+    </script>
+</body>
+
+</html>

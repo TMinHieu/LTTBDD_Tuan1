@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #333;
+            border-radius: 10px;
+        }
+        
+        .number {
+            font-size: 6rem;
+            width: 15rem;
+            height: 15rem;
+            line-height: 15rem;
+            border-radius: 50%;
+            margin: 20px auto;
+            background: #fff;
+            color: #222;
+        }
+        
+        .message {
+            font-size: 2rem;
+        }
+        
+        .guess {
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            width: 100px;
+        }
+        
+        .btn {
+            font-size: 1.5rem;
+            padding: 0.5rem 2rem;
+            margin: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            background: #007bff;
+        }
+        
+        .btn:hover {
+            background: #0056b3;
+        }
+        
+        .score {
+            font-size: 2rem;
+        }
+        
+        .again {
+            font-size: 1.5rem;
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+        }
+        
+        .again:hover {
+            background-color: #e54b4b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Guess My Number!</h1>
+        <p class="message">Start guessing...</p>
+        <div class="number">?</div>
+        <input type="number" class="guess" min="1" max="20" placeholder="Enter a number">
+        <button class="btn check">Check!</button>
+        <p class="score">Score: <span class="score">20</span></p>
+        <button class="again">Play Again!</button>
+    </div>
+
+    <script>
+        // Initial JavaScript code for game functionality
+        let score = 20;
+        let secretNumber = Math.floor(Math.random() * 20) + 1;
+
+        const INITIAL_SCORE = 20;
+        const INITIAL_BACKGROUND_COLOR = '#222';
+        const INITIAL_NUMBER_WIDTH = '15rem';
+
+        const againButton = document.querySelector('.again');
+        const messageElement = document.querySelector('.message');
+        const numberElement = document.querySelector('.number');
+        const scoreElement = document.querySelector('.score');
+        const guessInput = document.querySelector('.guess');
+
+        function resetGame() {
+            score = INITIAL_SCORE;
+            secretNumber = Math.floor(Math.random() * 20) + 1;
+
+            messageElement.textContent = 'Start guessing...';
+            numberElement.textContent = '?';
+            scoreElement.textContent = score;
+            guessInput.value = '';
+
+            document.body.style.backgroundColor = INITIAL_BACKGROUND_COLOR;
+            numberElement.style.width = INITIAL_NUMBER_WIDTH;
+        }
+
+        againButton.addEventListener('click', resetGame);
+
+        // Additional code for game functionality (e.g., checking guesses) can be added here
+    </script>
+</body>
+
+</html>

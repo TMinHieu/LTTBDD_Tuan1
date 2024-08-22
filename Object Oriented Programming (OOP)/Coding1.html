@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        pre {
+            text-align: left;
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Car Example</h1>
+        <script>
+            // 1. Car constructor function
+            function Car(make, speed) {
+                this.make = make;
+                this.speed = speed;
+            }
+
+            // 2. Accelerate method
+            Car.prototype.accelerate = function() {
+                this.speed += 10;
+                console.log(`${this.make} is now going at ${this.speed} km/h`);
+            };
+
+            // 3. Brake method
+            Car.prototype.brake = function() {
+                this.speed -= 5;
+                console.log(`${this.make} is now going at ${this.speed} km/h`);
+            };
+
+            // 4. Create 2 Car objects
+            const car1 = new Car('BMW', 120);
+            const car2 = new Car('Mercedes', 95);
+
+            // Test accelerate and brake methods
+            console.log('Testing Car 1:');
+            car1.accelerate(); // BMW is now going at 130 km/h
+            car1.brake(); // BMW is now going at 125 km/h
+            car1.accelerate(); // BMW is now going at 135 km/h
+            car1.brake(); // BMW is now going at 130 km/h
+
+            console.log('\nTesting Car 2:');
+            car2.accelerate(); // Mercedes is now going at 105 km/h
+            car2.brake(); // Mercedes is now going at 100 km/h
+            car2.accelerate(); // Mercedes is now going at 110 km/h
+            car2.brake(); // Mercedes is now going at 105 km/h
+        </script>
+    </div>
+</body>
+
+</html>

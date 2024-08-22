@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator</title>
+</head>
+
+<body>
+    <script>
+        // Function to calculate tip based on the bill amount
+        const calcTip = (bill) => {
+            return (bill >= 50 && bill <= 300) ? (bill * 0.15) : (bill * 0.20);
+        };
+
+        // Test data: Array of bill values
+        const bills = [125, 555, 44];
+
+        // Create an array 'tips' using the 'calcTip' function for each bill
+        const tips = bills.map(calcTip);
+
+        // Create an array 'total' containing the total values (bill + tip)
+        const total = bills.map((bill, index) => bill + tips[index]);
+
+        // Output the results to the console
+        console.log('Bills:', bills);
+        console.log('Tips:', tips);
+        console.log('Total:', total);
+    </script>
+</body>
+
+</html>
